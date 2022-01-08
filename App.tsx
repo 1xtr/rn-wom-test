@@ -1,20 +1,31 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {useFonts} from "expo-font";
+import MainNavigation from "./src/navigation/MainNavigation";
+import {View,Text} from "react-native";
 
-export default function App() {
+const App = () => {
+  const [fontsLoaded] = useFonts({
+    'lato-regular': require('./assets/fonts/Lato-Regular.ttf'),
+    'lato-bold': require('./assets/fonts/Lato-Bold.ttf'),
+    'lato-black': require('./assets/fonts/Lato-Black.ttf'),
+    'lato-light': require('./assets/fonts/Lato-Light.ttf'),
+    'lato-thin': require('./assets/fonts/Lato-Thin.ttf'),
+  })
+
+  if (!fontsLoaded) {
+    return (
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text>Loading fonts...</Text>
+      </View>
+    );
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <MainNavigation />
+    </NavigationContainer>
   );
+
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
